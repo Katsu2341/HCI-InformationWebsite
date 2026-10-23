@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jerlon M. Baguio | Resume</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script>document.documentElement.classList.add('js');</script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; border: none; outline: none; scroll-behavior: smooth; text-decoration: none; }
+
+        :root {
+            --bg-color: #05060f;
+            --text-color: #fff;
+            --muted: #b8bfd6;
+            --main-color: #0ef;
+            --accent: #ff2ec4;
+            --grad: linear-gradient(135deg, #0ef, #8b5cf6 55%, #ff2ec4);
+            --glass: rgba(255, 255, 255, 0.05);
+            --line: rgba(255, 255, 255, 0.12);
+        }
+
+        html { font-size: 62.5%; overflow-x: hidden; scroll-padding-top: 9rem; }
+
+        body {
+            background:
+                radial-gradient(circle at 12% 8%, rgba(139, 92, 246, 0.25), transparent 40%),
+                radial-gradient(circle at 88% 30%, rgba(255, 46, 196, 0.15), transparent 40%),
+                var(--bg-color);
+            background-attachment: fixed;
+            color: var(--text-color);
+            min-height: 100vh;
+            padding-top: 9rem;
+        }
+
+        /* ===== Twinkling stars (two layers) ===== */
+        body::before, body::after { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+
+        body::before {
+            background-image:
+                radial-gradient(1px 1px at 20px 30px, #fff, transparent),
+                radial-gradient(1px 1px at 90px 140px, #fff, transparent),
+                radial-gradient(1.5px 1.5px at 160px 70px, #fff, transparent),
+                radial-gradient(1px 1px at 210px 190px, #fff, transparent),
+                radial-gradient(1.5px 1.5px at 60px 220px, #fff, transparent),
+                radial-gradient(1px 1px at 260px 40px, #fff, transparent);
+            background-size: 300px 300px;
+            opacity: .7;
+        }
+
+        body::after {
+            background-image:
+                radial-gradient(2px 2px at 50px 80px, #fff, transparent),
+                radial-gradient(2px 2px at 180px 250px, #fff, transparent),
+                radial-gradient(2.5px 2.5px at 330px 120px, #fff, transparent),
+                radial-gradient(2px 2px at 420px 330px, #fff, transparent);
+            background-size: 500px 500px;
+            animation: twinkle 4s ease-in-out infinite alternate;
+        }
+
+        img { display: block; }
+
+        /* ===== Scroll progress bar ===== */
+        #progress {
+            position: fixed; top: 0; left: 0; height: .4rem; width: 0; z-index: 200;
+            background: var(--grad); box-shadow: 0 0 1.2rem var(--main-color);
+        }
+
+        /* ===== Navbar (slides down on load) ===== */
+        .header {
+            position: fixed; top: 1.5rem; left: 50%; transform: translateX(-50%);
+            width: min(94%, 110rem); padding: 1.3rem 3rem; border-radius: 5rem;
+            background: rgba(255, 255, 255, 0.06); backdrop-filter: blur(14px);
+            border: .1rem solid var(--line); box-shadow: 0 0 3rem rgba(0, 0, 0, 0.4);
+            display: flex; justify-content: space-between; align-items: center; z-index: 100;
+            animation: dropIn .8s ease both;
+        }
+
+        .logo {
+            font-size: 2.3rem; font-weight: 800; letter-spacing: .2rem;
+            background: var(--grad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        .navbar a { position: relative; font-size: 1.5rem; color: var(--text-color); margin-left: 3rem; transition: .3s; }
+        .navbar a:hover, .navbar a.active { color: var(--main-color); }
+
+        /* underline that grows under the menu links */
+        .navbar a::after {
+            content: ""; position: absolute; left: 0; bottom: -.6rem; width: 0; height: .2rem; border-radius: 1rem;
+            background: var(--grad); transition: width .3s ease;
+        }
+
+        .navbar a:hover::after, .navbar a.active::after { width: 100%; }
+
+        /* ===== Layout ===== */
+        section { padding: 6rem 9% 3rem; }
+        .wrap { max-width: 100rem; margin: 0 auto; }
+
+        .section-title { font-size: 3.6rem; font-weight: 800; margin-bottom: 3rem; }
+        .section-title span {
+            background: var(--grad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        /* line that grows under each title */
+        .section-title::after {
+            content: ""; display: block; width: 0; height: .4rem; margin-top: 1rem; border-radius: 1rem;
+            background: var(--grad); transition: width .9s ease .3s;
+        }
+
+        .section-title.in::after { width: 8rem; }
+
+        .panel {
+            background: var(--glass); backdrop-filter: blur(10px); border: .1rem solid var(--line);
+            border-radius: 22px; padding: 2.5rem 3rem;
+        }
+
+        /* ===== Hero (everything fades in one by one) ===== */
+        .hero { padding-top: 4rem; }
+        .hero .wrap { display: flex; align-items: center; justify-content: space-between; gap: 5rem; }
+
+        .hero-text > * { animation: fadeUp .8s ease both; }
+        .hero-text > :nth-child(1) { animation-delay: .2s; }
+        .hero-text > :nth-child(2) { animation-delay: .4s; }
+        .hero-text > :nth-child(3) { animation-delay: .6s; }
+        .hero-text > :nth-child(4) { animation-delay: .8s; }
+
+        .hero-text h3 { font-size: 2.4rem; font-weight: 600; }
+
+        .hero-text h1 {
+            font-size: 5.6rem; font-weight: 800; line-height: 1.2; margin: .5rem 0 1rem;
+            background: linear-gradient(90deg, #0ef, #8b5cf6, #ff2ec4, #0ef); background-size: 250% auto;
+            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+            animation: fadeUp .8s ease .4s both, shine 5s linear 1.2s infinite;   /* shiny moving color */
+        }
+
+        .role { font-size: 2.2rem; font-weight: 600; color: var(--main-color); margin-bottom: 2rem; min-height: 3.4rem; }
+        #typing::after { content: "|"; margin-left: .3rem; animation: blink 1s infinite; }
+        .objective { font-size: 1.6rem; line-height: 1.8; color: var(--muted); max-width: 55rem; }
+
+        /* photo: zooms in, then floats up and down */
+        .photo-ring {
+            position: relative; width: 32rem; aspect-ratio: 1 / 1; padding: .6rem; border-radius: 50%; flex-shrink: 0;
+            animation: zoomIn 1s ease .3s both, float 4s ease-in-out 1.3s infinite;
+        }
+
+        .photo-ring::before {
+            content: ""; position: absolute; inset: 0; border-radius: 50%;
+            background: conic-gradient(#0ef, #8b5cf6, #ff2ec4, #0ef);
+            box-shadow: 0 0 4rem rgba(0, 238, 255, 0.35); animation: spin 8s linear infinite;
+        }
+
+        .photo-ring img {
+            position: relative; width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
+            object-position: center top; border: .6rem solid var(--bg-color);
+        }
+
+        /* ===== Personal info ===== */
+        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(26rem, 1fr)); gap: 2rem; }
+
+        .info-item {
+            display: flex; align-items: center; gap: 1.5rem; padding: 1.8rem 2rem; border-radius: 16px;
+            background: rgba(255, 255, 255, 0.04); border: .1rem solid var(--line); transition: .3s;
+        }
+
+        .info-item:hover { border-color: var(--main-color); transform: translateY(-4px); }
+
+        .info-item i {
+            width: 4.4rem; height: 4.4rem; flex-shrink: 0; display: inline-flex; justify-content: center; align-items: center;
+            border-radius: 50%; border: .2rem solid var(--main-color); color: var(--main-color); font-size: 1.8rem; transition: .4s;
+        }
+
+        .info-item:hover i { background: var(--main-color); color: #05060f; transform: rotate(360deg); }
+        .info-item small { display: block; font-size: 1.2rem; letter-spacing: .1rem; text-transform: uppercase; color: var(--muted); }
+        .info-item p { font-size: 1.6rem; font-weight: 600; }
+
+        /* ===== Timeline (education) ===== */
+        .timeline { position: relative; padding-left: 3.5rem; }
+
+        .timeline::before {
+            content: ""; position: absolute; left: .7rem; top: 0; bottom: 0; width: .3rem;
+            background: linear-gradient(var(--main-color), var(--accent), transparent);
+            transform-origin: top; transition: transform 1.4s ease;
+        }
+
+        .js .timeline::before { transform: scaleY(0); }          /* the line draws itself downward */
+        .js .timeline.in::before { transform: scaleY(1); }
+
+        .t-item {
+            position: relative; background: var(--glass); backdrop-filter: blur(10px); border: .1rem solid var(--line);
+            border-radius: 18px; padding: 2rem 2.5rem; margin-bottom: 2.5rem; transition: .3s;
+        }
+
+        .t-item::before {
+            content: ""; position: absolute; left: -3.3rem; top: 2.6rem; width: 1.4rem; height: 1.4rem; border-radius: 50%;
+            background: var(--main-color); box-shadow: 0 0 1.2rem var(--main-color); animation: ping 2s ease-out infinite;
+        }
+
+        .t-item:hover { border-color: var(--main-color); transform: translateX(8px); }
+        .t-year { font-size: 1.3rem; font-weight: 600; letter-spacing: .1rem; color: var(--accent); }
+        .t-item h3 { font-size: 2rem; margin: .4rem 0; }
+        .t-item .level { font-size: 1.3rem; color: var(--main-color); font-weight: 600; text-transform: uppercase; letter-spacing: .1rem; }
+        .t-item p { font-size: 1.5rem; line-height: 1.6; color: var(--muted); }
+
+        /* ===== Skills + languages ===== */
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+        .panel h3 { font-size: 2rem; margin-bottom: 1.8rem; }
+        .panel h3 i { color: var(--main-color); margin-right: .8rem; }
+
+        .chips { display: flex; flex-wrap: wrap; gap: 1rem; }
+
+        .chip {
+            padding: .9rem 1.8rem; border-radius: 4rem; background: rgba(255, 255, 255, 0.06);
+            border: .1rem solid var(--line); font-size: 1.5rem; transition: .3s;
+        }
+
+        .chip:hover { border-color: var(--main-color); transform: translateY(-3px) scale(1.05); box-shadow: 0 0 1.2rem rgba(0, 238, 255, 0.3); }
+
+        /* ===== Experience + references ===== */
+        .exp-head { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem; }
+        .exp-head h3 { font-size: 2.2rem; margin: 0; }
+
+        .badge {
+            padding: .6rem 1.5rem; border-radius: 4rem; background: rgba(255, 46, 196, 0.15); border: .1rem solid var(--accent);
+            color: var(--accent); font-size: 1.3rem; font-weight: 600; animation: glowPulse 2.5s ease-in-out infinite;
+        }
+
+        .detail-list { display: flex; flex-direction: column; gap: 1.2rem; }
+        .detail-list p { font-size: 1.6rem; line-height: 1.6; color: var(--muted); }
+        .detail-list b { color: #fff; font-weight: 600; margin-right: .5rem; }
+        .detail-list i { color: var(--main-color); width: 2.4rem; }
+
+        .ref-name { font-size: 2rem; font-weight: 700; }
+        .ref-role { font-size: 1.5rem; color: var(--main-color); margin: .3rem 0 1rem; }
+
+        /* ===== Contact ===== */
+        .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(26rem, 1fr)); gap: 2rem; }
+
+        .contact-card {
+            display: flex; align-items: center; gap: 1.5rem; padding: 2rem; border-radius: 18px;
+            background: var(--glass); border: .1rem solid var(--line); color: #fff; transition: .3s;
+        }
+
+        .contact-card:hover { border-color: var(--main-color); transform: translateY(-5px); box-shadow: 0 0 2rem rgba(0, 238, 255, 0.25); }
+
+        .contact-card i {
+            width: 4.8rem; height: 4.8rem; flex-shrink: 0; display: inline-flex; justify-content: center; align-items: center;
+            border-radius: 50%; background: var(--grad); font-size: 2rem; transition: .4s;
+        }
+
+        .contact-card:hover i { transform: rotate(360deg) scale(1.1); }
+        .contact-card small { display: block; font-size: 1.2rem; text-transform: uppercase; letter-spacing: .1rem; color: var(--muted); }
+        .contact-card p { font-size: 1.5rem; font-weight: 600; word-break: break-word; }
+
+        /* ===== Footer ===== */
+        .footer { text-align: center; padding: 3rem 9%; margin-top: 4rem; border-top: .1rem solid var(--line); background: var(--glass); }
+        .footer p { font-size: 1.4rem; color: var(--muted); }
+
+        /* ===== SCROLL ANIMATIONS ===== */
+        /* 1) whole blocks fade up when you scroll to them */
+        .js .reveal { opacity: 0; transform: translateY(40px); transition: opacity .8s ease, transform .8s ease; }
+        .js .reveal.in { opacity: 1; transform: none; }
+
+        /* 2) items inside a group appear one after another */
+        .js .stagger > * { opacity: 0; }
+        .js .stagger.in > * { opacity: 1; animation: pop .6s ease backwards; animation-delay: calc(var(--i) * 90ms); }
+        .js .timeline.stagger.in > * { animation-name: slideRight; animation-duration: .7s; animation-delay: calc(var(--i) * 200ms); }
+        .js .chips.stagger.in > * { animation-duration: .5s; animation-delay: calc(var(--i) * 70ms); }
+
+        /* ===== Keyframes ===== */
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: none; } }
+        @keyframes dropIn { from { opacity: 0; transform: translate(-50%, -40px); } to { opacity: 1; transform: translate(-50%, 0); } }
+        @keyframes zoomIn { from { opacity: 0; transform: scale(.6); } to { opacity: 1; transform: scale(1); } }
+        @keyframes pop { from { opacity: 0; transform: translateY(25px) scale(.9); } to { opacity: 1; transform: none; } }
+        @keyframes slideRight { from { opacity: 0; transform: translateX(-50px); } to { opacity: 1; transform: none; } }
+        @keyframes float { 50% { transform: translateY(-15px); } }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes shine { to { background-position: 250% center; } }
+        @keyframes blink { 50% { opacity: 0; } }
+        @keyframes twinkle { from { opacity: .35; } to { opacity: 1; } }
+        @keyframes ping { 0% { box-shadow: 0 0 0 0 rgba(0, 238, 255, 0.7); } 100% { box-shadow: 0 0 0 1.2rem rgba(0, 238, 255, 0); } }
+        @keyframes glowPulse { 50% { box-shadow: 0 0 1.5rem rgba(255, 46, 196, 0.6); } }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 900px) {
+            .header { padding: 1.2rem 2rem; }
+            .navbar a { margin-left: 1.3rem; font-size: 1.3rem; }
+            .logo { font-size: 2rem; }
+            .hero .wrap { flex-direction: column-reverse; text-align: center; gap: 3rem; }
+            .hero-text h1 { font-size: 4rem; }
+            .objective { margin: 0 auto; }
+            .photo-ring { width: 24rem; }
+            .two-col { grid-template-columns: 1fr; }
+            .section-title { font-size: 3rem; }
+        }
+
+        @media (max-width: 600px) {
+            .navbar a:nth-child(n+4) { display: none; }
+        }
+
+        /* People who turn off animations on their device get a calm page */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation: none !important; transition: none !important; }
+            .js .reveal, .js .stagger > * { opacity: 1 !important; transform: none !important; }
+            .js .timeline::before { transform: none !important; }
+            .section-title::after { width: 8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="progress"></div>
+
+    <header class="header">
+        <a href="#" class="logo">JMB</a>
+
+        <nav class="navbar">
+            <a href="#home" class="active">Home</a>
+            <a href="#about">About</a>
+            <a href="#education">Education</a>
+            <a href="#skills">Skills</a>
+            <a href="#experience">Experience</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <!-- HOME -->
+    <section class="hero" id="home">
+        <div class="wrap">
+            <div class="hero-text">
+                <h3>Hello, I'm</h3>
+                <h1>Jerlon M. Baguio</h1>
+                <p class="role"><span id="typing">BSIT Student</span></p>
+                <p class="objective">As a committed learner, my goal is to put my knowledge to use in a real-world situation, support one another, and advance my career.</p>
+            </div>
+
+            <div class="photo-ring">
+                <img src="pic3.jpg" alt="Jerlon M. Baguio">
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT / PERSONAL INFORMATION -->
+    <section id="about">
+        <div class="wrap">
+            <h2 class="section-title reveal">Personal <span>Information</span></h2>
+
+            <div class="info-grid stagger">
+                <div class="info-item"><i class="fa-solid fa-cake-candles"></i><div><small>Birthday</small><p>November 7, 2005</p></div></div>
+                <div class="info-item"><i class="fa-solid fa-hourglass-half"></i><div><small>Age</small><p id="age">20</p></div></div>
+                <div class="info-item"><i class="fa-solid fa-venus-mars"></i><div><small>Gender</small><p>Male</p></div></div>
+                <div class="info-item"><i class="fa-solid fa-ring"></i><div><small>Civil Status</small><p>Single</p></div></div>
+                <div class="info-item"><i class="fa-solid fa-church"></i><div><small>Religion</small><p>Roman Catholic</p></div></div>
+                <div class="info-item"><i class="fa-solid fa-location-dot"></i><div><small>Birth Place</small><p>Cebu City</p></div></div>
+                <div class="info-item"><i class="fa-solid fa-flag"></i><div><small>Citizenship</small><p>Filipino</p></div></div>
+                <div class="info-item"><i class="fa-solid fa-gamepad"></i><div><small>Hobbies</small><p>Playing, Listening to Music, Watching Movies</p></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education">
+        <div class="wrap">
+            <h2 class="section-title reveal">Educational <span>Background</span></h2>
+
+            <div class="timeline stagger">
+                <div class="t-item">
+                    <span class="t-year">2024 – 2025</span>
+                    <h3>University of Cebu Main Campus</h3>
+                    <span class="level">College · BSIT · First Year</span>
+                    <p>155A Sanciangko St, Cebu City</p>
+                </div>
+
+                <div class="t-item">
+                    <span class="t-year">2022 – 2024</span>
+                    <h3>University of Cebu Main Campus SHS</h3>
+                    <span class="level">Senior High School</span>
+                    <p>J Alcantara St. Sambag 1</p>
+                </div>
+
+                <div class="t-item">
+                    <span class="t-year">2017 – 2022</span>
+                    <h3>Pardo National High School</h3>
+                    <span class="level">High School</span>
+                    <p>J Tabura Gabuya St. Cebu City</p>
+                </div>
+
+                <div class="t-item">
+                    <span class="t-year">2012 – 2017</span>
+                    <h3>Pardo Elementary School</h3>
+                    <span class="level">Elementary</span>
+                    <p>A Gabuya St, Pardo Cebu City</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILLS + LANGUAGE -->
+    <section id="skills">
+        <div class="wrap">
+            <h2 class="section-title reveal">Skills &amp; <span>Languages</span></h2>
+
+            <div class="two-col">
+                <div class="panel reveal">
+                    <h3><i class="fa-solid fa-screwdriver-wrench"></i>Skills</h3>
+                    <div class="chips stagger">
+                        <span class="chip">Video Editing</span>
+                        <span class="chip">Hardware Servicing</span>
+                        <span class="chip">Computer Maintenance</span>
+                        <span class="chip">Networking</span>
+                        <span class="chip">Sales Talk</span>
+                        <span class="chip">Network Cabling</span>
+                    </div>
+                </div>
+
+                <div class="panel reveal">
+                    <h3><i class="fa-solid fa-language"></i>Languages</h3>
+                    <div class="chips stagger">
+                        <span class="chip">Tagalog</span>
+                        <span class="chip">English</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WORK EXPERIENCE + REFERENCE -->
+    <section id="experience">
+        <div class="wrap">
+            <h2 class="section-title reveal">Work <span>Experience</span></h2>
+
+            <div class="panel reveal">
+                <div class="exp-head">
+                    <h3>Immersion Program</h3>
+                    <span class="badge">80 hours</span>
+                </div>
+
+                <div class="detail-list">
+                    <p><i class="fa-solid fa-building"></i><b>Company:</b> 4RMTech Gadget's Shop</p>
+                    <p><i class="fa-solid fa-user-tie"></i><b>Manager:</b> Mr. Ryan V. Virgen</p>
+                    <p><i class="fa-solid fa-location-dot"></i><b>Location:</b> 3rd floor Elizabeth Mall, Sanciangko St, Pahina Central, Cebu City, Cebu</p>
+                </div>
+            </div>
+
+            <h2 class="section-title reveal" style="margin-top: 5rem;">Character <span>Reference</span></h2>
+
+            <div class="panel reveal">
+                <p class="ref-name">Mr. Churchill Medalle</p>
+                <p class="ref-role">ITCP Coordinator</p>
+                <div class="detail-list">
+                    <p><i class="fa-solid fa-school"></i>University of Cebu – Main, Senior High School</p>
+                    <p><i class="fa-solid fa-phone"></i>0925 – 455 – 7400</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+        <div class="wrap">
+            <h2 class="section-title reveal">Contact <span>Me</span></h2>
+
+            <div class="contact-grid stagger">
+                <a class="contact-card" href="mailto:jerlonbaguio88@gmail.com">
+                    <i class="fa-solid fa-envelope"></i>
+                    <div><small>Email</small><p>jerlonbaguio88@gmail.com</p></div>
+                </a>
+
+                <a class="contact-card" href="tel:+639638463168">
+                    <i class="fa-solid fa-phone"></i>
+                    <div><small>Mobile</small><p>0963 846 3168</p></div>
+                </a>
+
+                <div class="contact-card">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <div><small>Address</small><p>Sitio Millinium, Cogon Pardo, Cebu City</p></div>
+                </div>
+
+                <a class="contact-card" href="https://www.facebook.com/jerlon.baguio.7" target="_blank" rel="noopener">
+                    <i class="fa-brands fa-facebook-f"></i>
+                    <div><small>Facebook</small><p>Jerlon Baguio</p></div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>© 2026 Jerlon M. Baguio. All rights reserved.</p>
+    </footer>
+
+    <script>
+        /* ===== Age (worked out from the birthday) ===== */
+        const birth = new Date(2005, 10, 7);          // November 7, 2005
+        const today = new Date();
+        let age = today.getFullYear() - birth.getFullYear();
+        const mo = today.getMonth() - birth.getMonth();
+        if (mo < 0 || (mo === 0 && today.getDate() < birth.getDate())) age--;
+        const ageEl = document.getElementById('age');
+        ageEl.textContent = age;
+
+        /* Age counts up from 0 when it scrolls into view */
+        function countUp() {
+            let n = 0;
+            const t = setInterval(() => {
+                n++;
+                ageEl.textContent = n;
+                if (n >= age) clearInterval(t);
+            }, 60);
+        }
+
+        /* ===== Typing animation under the name ===== */
+        const typingEl = document.getElementById('typing');
+        const words = ["BSIT Student", "Video Editor", "Hardware Servicing", "Networking"];   // change these words
+        let w = 0, c = 0, deleting = false;
+
+        function type() {
+            const word = words[w];
+            typingEl.textContent = word.slice(0, c);
+            if (!deleting) {
+                if (c < word.length) { c++; setTimeout(type, 90); }
+                else { deleting = true; setTimeout(type, 1500); }
+            } else {
+                if (c > 0) { c--; setTimeout(type, 45); }
+                else { deleting = false; w = (w + 1) % words.length; setTimeout(type, 300); }
+            }
+        }
+        setTimeout(type, 1400);   // starts after the intro animation
+
+        /* ===== Scroll animations ===== */
+        document.querySelectorAll('.stagger').forEach(group => {
+            Array.from(group.children).forEach((child, i) => child.style.setProperty('--i', i));
+        });
+
+        let counted = false;
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('in');
+                if (entry.target.classList.contains('info-grid') && !counted) { counted = true; countUp(); }
+                observer.unobserve(entry.target);
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+        document.querySelectorAll('.reveal, .stagger').forEach(el => observer.observe(el));
+
+        const progress = document.getElementById('progress');
+        const links = document.querySelectorAll('.navbar a');
+        const ids = ['home', 'about', 'education', 'skills', 'experience', 'contact'];
+
+        window.addEventListener('scroll', () => {
+            const max = document.documentElement.scrollHeight - window.innerHeight;
+            progress.style.width = (window.scrollY / max * 100) + '%';
+
+            let current = 'home';
+            ids.forEach(id => {
+                const el = document.getElementById(id);
+                if (el && window.scrollY >= el.offsetTop - 200) current = id;
+            });
+            links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+        });
+    </script>
+</body>
+</html>
